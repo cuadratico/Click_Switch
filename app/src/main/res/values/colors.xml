@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="gris">#515151</color>
+    <color name="ojo">#16161d</color>
+
+    <color name="Red">#d30000</color>
+    <color name="Green">#03d300</color>
+    <color name="Blue">#0015d3</color>
+    <color name="Yellow">#d1d100</color>
+
+    <color name="azul_1">#5e9fa3</color>
+    <color name="marron_1">#dcd1b4</color>
+    <color name="naranja_1">#fab87f</color>
+    <color name="rosa_1">#b05574</color>
+    
+    
+    <color name="gris_2">#8b8b70</color>
+    <color name="rojo_2">#e84a5f</color>
+    <color name="amarillo_2">#ecb163</color>
+    <color name="morado_2">#473469</color>
+
+    
+</resources>
