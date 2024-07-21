@@ -4,7 +4,7 @@
 
 # Click_Switch
 
-- Click_Switch is a game where you have to click the color button that appears and not the colorText button.
+- Click_Switch is a game where you have to click the color button that appears and not the textColor button.
 
 - Click_Switch does not collect user information and it is advisable to use it without internet access since it does not require it.
 
