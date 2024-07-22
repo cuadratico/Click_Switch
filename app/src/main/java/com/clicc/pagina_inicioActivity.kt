@@ -8,6 +8,7 @@ import android.media.MediaPlayer
 import android.net.ConnectivityManager
 import android.os.Bundle
 import android.preference.PreferenceManager
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.view.animation.Animation
@@ -39,6 +40,8 @@ class pagina_inicioActivity : AppCompatActivity() {
         @SuppressLint("ResourceType", "ResourceAsColor", "MissingPermission")
         fun juego() {
             getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            val mensaje = "VRI[ayudaActivity]      com.clicc"
+
             // internet
             val wifi = findViewById<ShapeableImageView>(R.id.wifi)
             val contexto = this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -48,6 +51,7 @@ class pagina_inicioActivity : AppCompatActivity() {
             }else{
                 wifi.setImageResource(R.drawable.wifi_n)
             }
+
             // botones
             val boton_1 = ContextCompat.getDrawable(this, R.drawable.bordes_r)
             val boton_2 = ContextCompat.getDrawable(this, R.drawable.bordes_az)
@@ -58,49 +62,51 @@ class pagina_inicioActivity : AppCompatActivity() {
             val sound = findViewById<ShapeableImageView>(R.id.sound)
             val record_h = findViewById<TextView>(R.id.record_h)
             // colores
+            fun cambio(col: String) {
+                Log.d("fallo", "funcion ejecutada")
+                if (col == "Color: 1") {
+                    val rojo = Color.parseColor("#d30000")
+                    boton_1!!.setTint(rojo)
+                    val verde = Color.parseColor("#03d300")
+                    boton_3!!.setTint(verde)
+                    val azul = Color.parseColor("#0015d3")
+                    boton_2!!.setTint(azul)
+                    val amarillo = Color.parseColor("#d1d100")
+                    boton_4!!.setTint(amarillo)
+                } else if (col == "Color: 2") {
+                    val azul_1 = Color.parseColor("#5e9fa3")
+                    boton_1!!.setTint(azul_1)
+                    val blanco_1 = Color.parseColor("#dcd1b4")
+                    boton_2!!.setTint(blanco_1)
+                    val salmon_1 = Color.parseColor("#fab87f")
+                    boton_3!!.setTint(salmon_1)
+                    val rosa_1 = Color.parseColor("#b05574")
+                    boton_4!!.setTint(rosa_1)
+                } else {
+                    val gris_2 = Color.parseColor("#8b8b70")
+                    boton_1!!.setTint(gris_2)
+                    val rojo_2 = Color.parseColor("#e84a5f")
+                    boton_2!!.setTint(rojo_2)
+                    val amarillo_2 = Color.parseColor("#ecb163")
+                    boton_3!!.setTint(amarillo_2)
+                    val morado_2 = Color.parseColor("#473469")
+                    boton_4!!.setTint(morado_2)
+                }
+            }
             val colores = findViewById<Spinner>(R.id.colores)
             colores.visibility = View.INVISIBLE
             colores.isEnabled = false
             val lista = mutableListOf("Color: 1", "Color: 2", "Color: 3")
-
             val adaptador = ArrayAdapter(this, android.R.layout.simple_list_item_1, lista)
             colores.adapter = adaptador
             val lisener = object : OnItemSelectedListener, AdapterView.OnItemSelectedListener {
                 override fun onNavigationItemSelected(item: MenuItem): Boolean {
                     TODO("Not yet implemented")
                 }
-
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                     val e = colores.getItemAtPosition(position).toString()
                     pref.edit().putString("colores", e).apply()
-                    if (e == "Color: 1") {
-                        val rojo = Color.parseColor("#d30000")
-                        boton_1!!.setTint(rojo)
-                        val verde = Color.parseColor("#03d300")
-                        boton_3!!.setTint(verde)
-                        val azul = Color.parseColor("#0015d3")
-                        boton_2!!.setTint(azul)
-                        val amarillo = Color.parseColor("#d1d100")
-                        boton_4!!.setTint(amarillo)
-                    }else if (e == "Color: 2") {
-                        val azul_1 = Color.parseColor("#5e9fa3")
-                        boton_1!!.setTint(azul_1)
-                        val blanco_1 = Color.parseColor("#dcd1b4")
-                        boton_2!!.setTint(blanco_1)
-                        val salmon_1 = Color.parseColor("#fab87f")
-                        boton_3!!.setTint(salmon_1)
-                        val rosa_1 = Color.parseColor("#b05574")
-                        boton_4!!.setTint(rosa_1)
-                    }else {
-                        val gris_2 = Color.parseColor("#8b8b70")
-                        boton_1!!.setTint(gris_2)
-                        val rojo_2 = Color.parseColor("#e84a5f")
-                        boton_2!!.setTint(rojo_2)
-                        val amarillo_2 = Color.parseColor("#ecb163")
-                        boton_3!!.setTint(amarillo_2)
-                        val morado_2 = Color.parseColor("#473469")
-                        boton_4!!.setTint(morado_2)
-                    }
+                    cambio(e)
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -109,7 +115,9 @@ class pagina_inicioActivity : AppCompatActivity() {
             }
             colores.onItemSelectedListener = lisener
             if (col!!.isEmpty()){
-                colores.setSelection(1)
+                colores.setSelection(0)
+                val c = colores.getItemAtPosition(0).toString()
+                cambio(c)
             }else{
                 if (col == "Color: 1"){
                     colores.setSelection(0)
@@ -118,6 +126,7 @@ class pagina_inicioActivity : AppCompatActivity() {
                 }else{
                     colores.setSelection(2)
                 }
+                cambio(col)
             }
 
             val view = findViewById<View>(R.id.view)
@@ -133,6 +142,7 @@ class pagina_inicioActivity : AppCompatActivity() {
                 if (conectivida != null && conectivida.isConnected) {
                     wifi.setImageResource(R.drawable.wifi_s)
                     startActivities(arrayOf(Intent(this, ayudaActivity::class.java)))
+                    finish()
                 }else {
                     wifi.setImageResource(R.drawable.wifi_n)
                 }
