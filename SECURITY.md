@@ -7,6 +7,7 @@ Version 8.6.1 is the latest version and the only one maintained by me..
 | Version | Supported          |
 | ------- | ------------------ |
 | 8.6.1   | :white_check_mark: |
+| 8.6   | :X: |
 
 ## Reporting a Vulnerability
 
