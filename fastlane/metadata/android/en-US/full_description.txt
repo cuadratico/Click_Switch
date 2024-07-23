@@ -1,0 +1,18 @@
+My app is based on a game where you have to give the written color not the text color, it consists of four buttons that can be exchanged between three color palettes, one being the main one.
+
+- Easy mode:
+In this mode you will only have to hit the correct button, if you hit it correctly you will get a point and if you don't hit it correctly and your score is higher than your previous record you will have a new redord.
+
+- Hard mode:
+The difficult mode is the same as the easy mode with the difference that you will have a Dialog to choose the amount of time you want between 15, 30 and 60 seconds.
+
+- Crazy mode:
+This mode is the same as the easy mode but the order of the buttons varies randomly each time you score a point.
+
+- Characteristics:
+
+The game is in Spanish and English, you can activate or deactivate the sound of the buttons and you have a Spinner to choose which colors you want to play with.
+
+
+- Additional features:
+There is a wifi indicator and a webView where you can browse Google in case you have any questions and don't want to leave the game.
