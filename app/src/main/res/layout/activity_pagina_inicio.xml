@@ -152,28 +152,6 @@
         android:layout_marginTop="15dp"/>
 
 
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/ayuda"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="10dp"
-        android:src="@drawable/ayuda"
-    />
-
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/wifi"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toEndOf="@id/ayuda"
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="13dp"
-        android:src="@drawable/wifi_s"
-        />
-
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/restart"

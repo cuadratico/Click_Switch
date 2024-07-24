@@ -42,15 +42,6 @@ class pagina_inicioActivity : AppCompatActivity() {
             getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES)
             val mensaje = "VRI[ayudaActivity]      com.clicc"
 
-            // internet
-            val wifi = findViewById<ShapeableImageView>(R.id.wifi)
-            val contexto = this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-            val conectividad = contexto.activeNetworkInfo
-            if (conectividad != null && conectividad.isConnected){
-                wifi.setImageResource(R.drawable.wifi_s)
-            }else{
-                wifi.setImageResource(R.drawable.wifi_n)
-            }
 
             // botones
             val boton_1 = ContextCompat.getDrawable(this, R.drawable.bordes_r)
@@ -135,18 +126,7 @@ class pagina_inicioActivity : AppCompatActivity() {
             val crazy = findViewById<AppCompatButton>(R.id.crazy)
             val texto = findViewById<TextView>(R.id.texto)
             val restart = findViewById<ShapeableImageView>(R.id.restart)
-            val ayuda = findViewById<ShapeableImageView>(R.id.ayuda)
-            ayuda.setOnClickListener {
-                val context = this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-                val conectivida = context.activeNetworkInfo
-                if (conectivida != null && conectivida.isConnected) {
-                    wifi.setImageResource(R.drawable.wifi_s)
-                    startActivities(arrayOf(Intent(this, ayudaActivity::class.java)))
-                    finish()
-                }else {
-                    wifi.setImageResource(R.drawable.wifi_n)
-                }
-            }
+
             val s_2 = findViewById<Switch>(R.id.s_2)
             val menu = findViewById<ShapeableImageView>(R.id.menu)
             var son = "activo"
