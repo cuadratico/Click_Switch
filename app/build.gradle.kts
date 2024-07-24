@@ -11,8 +11,8 @@ android {
         applicationId = "com.clicc"
         minSdk = 24
         targetSdk = 34
-        versionCode = 26
-        versionName = "8.6.1"
+        versionCode = 27
+        versionName = "8.6.2"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
