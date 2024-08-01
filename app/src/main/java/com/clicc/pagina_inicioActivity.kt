@@ -1,11 +1,9 @@
 package com.clicc
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.media.MediaPlayer
-import android.net.ConnectivityManager
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.util.Log
@@ -110,13 +108,9 @@ class pagina_inicioActivity : AppCompatActivity() {
                 val c = colores.getItemAtPosition(0).toString()
                 cambio(c)
             }else{
-                if (col == "Color: 1"){
-                    colores.setSelection(0)
-                }else if (col == "Color: 2"){
-                    colores.setSelection(1)
-                }else{
-                    colores.setSelection(2)
-                }
+                val posicion = lista.indexOf(col)
+                colores.setSelection(posicion)
+
                 cambio(col)
             }
 
@@ -317,7 +311,6 @@ class pagina_inicioActivity : AppCompatActivity() {
 
             dificil.setOnClickListener {
                 sonido(son)
-                finish()
                 dificil.startAnimation(animacion)
                 val recor = record_h.text.toString()
                 val intent = Intent(this, dificilActivity::class.java)

@@ -16,10 +16,8 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.progressindicator.LinearProgressIndicator
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -56,10 +54,9 @@ class dificilActivity : AppCompatActivity() {
             val tapador = findViewById<View>(R.id.tapador)
 
             // contador
-            val scope = CoroutineScope(Dispatchers.Main)
             fun contador(valor:Int) {
                 val tiempo = findViewById<TextView>(R.id.tiempo)
-                scope.launch {
+                lifecycleScope.launch {
                     for (i in valor downTo 0) {
                         tiempo.text = i.toString()
                         // regla de tres
@@ -89,10 +86,8 @@ class dificilActivity : AppCompatActivity() {
                                 intent.putExtra("valor", i.toString())
                                 intent.putExtra("time", time)
                                 startActivities(arrayOf(intent))
-                                finish()
                             }else{
                                 startActivities(arrayOf(intent))
-                                finish()
                             }
                         }else{
                             delay(1000)
@@ -233,7 +228,7 @@ class dificilActivity : AppCompatActivity() {
                             puntuacion.startAnimation(ani)
                             princial()
                         } else {
-                            scope.cancel()
+                            finish()
                             val i = recor.toInt()
                             val p = puntuacion.text.toString()
                             val i_2 = p.toInt()
@@ -242,10 +237,8 @@ class dificilActivity : AppCompatActivity() {
                                 intent.putExtra("valor", p)
                                 intent.putExtra("time", time)
                                 startActivities(arrayOf(intent))
-                                finish()
                             }else{
                                 startActivities(arrayOf(Intent(this, pagina_inicioActivity::class.java)))
-                                finish()
                             }
                         }
                     }
@@ -294,7 +287,7 @@ class dificilActivity : AppCompatActivity() {
                             puntuacion.startAnimation(ani)
                             princial()
                         } else {
-                            scope.cancel()
+                            finish()
                             val i = recor.toInt()
                             val p = puntuacion.text.toString()
                             val i_2 = p.toInt()
@@ -303,10 +296,8 @@ class dificilActivity : AppCompatActivity() {
                                 intent.putExtra("valor", i_2.toString())
                                 intent.putExtra("time", time)
                                 startActivities(arrayOf(intent))
-                                finish()
                             }else{
                                 startActivities(arrayOf(Intent(this, pagina_inicioActivity::class.java)))
-                                finish()
                             }
                         }
 
