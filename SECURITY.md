@@ -2,7 +2,7 @@
 
 ## Supported Versions
 
-Version 8.6.1 is the latest version and the only one maintained by me..
+Version 8.6.5 is the latest version and the only one maintained by me..
 
 | Version | Supported          |
 | ------- | ------------------ |
