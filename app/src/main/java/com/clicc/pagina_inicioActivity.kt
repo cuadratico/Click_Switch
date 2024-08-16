@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Color
 import android.media.MediaPlayer
+import android.net.Uri
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.util.Log
@@ -38,8 +39,6 @@ class pagina_inicioActivity : AppCompatActivity() {
         @SuppressLint("ResourceType", "ResourceAsColor", "MissingPermission")
         fun juego() {
             getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-            val mensaje = "VRI[ayudaActivity]      com.clicc"
-
 
             // botones
             val boton_1 = ContextCompat.getDrawable(this, R.drawable.bordes_r)
@@ -122,9 +121,11 @@ class pagina_inicioActivity : AppCompatActivity() {
             val restart = findViewById<ShapeableImageView>(R.id.restart)
 
             val s_2 = findViewById<Switch>(R.id.s_2)
+            val git = findViewById<ShapeableImageView>(R.id.git)
             val menu = findViewById<ShapeableImageView>(R.id.menu)
             var son = "activo"
             var v_menu = "tapado"
+            val dia = false
             val tiempo = findViewById<TextView>(R.id.tiempo)
             val time = intent.extras?.getString("time").orEmpty()
             if (time.isEmpty()) {
@@ -159,6 +160,7 @@ class pagina_inicioActivity : AppCompatActivity() {
                     val animacion = AnimationUtils.loadAnimation(this, R.anim.translacion)
                     val animacion_sonido = AnimationUtils.loadAnimation(this, R.anim.transicion_sonido)
                     val animacion_colores = AnimationUtils.loadAnimation(this, R.anim.transicion_colores)
+                    val animacion_git = AnimationUtils.loadAnimation(this, R.anim.translacion_de_git)
                     animacion.setAnimationListener(object:Animation.AnimationListener{
                         override fun onAnimationStart(animation: Animation?) {
                             s_2.isEnabled = false
@@ -213,11 +215,33 @@ class pagina_inicioActivity : AppCompatActivity() {
                         }
                     })
                     colores.startAnimation(animacion_colores)
+
+                    animacion_git.setAnimationListener(object: Animation.AnimationListener{
+                        override fun onAnimationStart(animation: Animation?) {
+                            git.isEnabled = false
+                        }
+
+                        override fun onAnimationEnd(animation: Animation?) {
+                            git.clearAnimation()
+                            git.isEnabled = true
+                            val v_x = git.x
+                            val v_y = git.y
+
+                            git.x = v_x - 200
+                            git.y = v_y + 130
+                        }
+
+                        override fun onAnimationRepeat(animation: Animation?) {
+                            TODO("Not yet implemented")
+                        }
+                    })
+                    git.startAnimation(animacion_git)
                     v_menu = "sacado"
                 }else{
                     val animacion_2 = AnimationUtils.loadAnimation(this, R.anim.transicion_2)
                     val animacion_sonido_2 = AnimationUtils.loadAnimation(this, R.anim.transicion_sonido_2)
                     val animacion_colroes_2 = AnimationUtils.loadAnimation(this, R.anim.transicion_colores_2)
+                    val animacion_git_2 = AnimationUtils.loadAnimation(this, R.anim.transicion_de_git_2)
                     animacion_2.setAnimationListener(object:Animation.AnimationListener{
                         override fun onAnimationStart(animation: Animation?) {
                             s_2.isEnabled = false
@@ -268,6 +292,26 @@ class pagina_inicioActivity : AppCompatActivity() {
                         }
                     })
                     colores.startAnimation(animacion_colroes_2)
+
+                    animacion_git_2.setAnimationListener(object: Animation.AnimationListener{
+                        override fun onAnimationStart(animation: Animation?) {
+                            git.isEnabled = false
+                        }
+
+                        override fun onAnimationEnd(animation: Animation?) {
+                            git.isEnabled = true
+                            val v_x = git.x
+                            val v_y = git.y
+
+                            git.x = v_x + 200
+                            git.y = v_y -130
+                        }
+
+                        override fun onAnimationRepeat(animation: Animation?) {
+                            TODO("Not yet implemented")
+                        }
+                    })
+                    git.startAnimation(animacion_git_2)
                     v_menu = "tapado"
                 }
             }
@@ -276,7 +320,9 @@ class pagina_inicioActivity : AppCompatActivity() {
             //botones
             val animacion = AnimationUtils.loadAnimation(applicationContext, R.anim.rescalado)
 
-
+            git.setOnClickListener {
+                startActivities(arrayOf(Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/cuadratico/"))))
+            }
             sound.setOnClickListener {
                 if (son == "activo"){
                     son = "desactivado"

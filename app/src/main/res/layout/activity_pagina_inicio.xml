@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".pagina_inicioActivity"
-    android:background="@color/ojo">
+    android:background="@color/ojo"
+    >
 
 
 
@@ -113,6 +114,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/sonido_activado"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="@id/menu"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="20dp"
+        tools:ignore="MissingConstraints"/>
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/git"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/git"
+        android:background="@drawable/bordes_de_git"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="@id/menu"
