@@ -171,13 +171,13 @@ class pagina_inicioActivity : AppCompatActivity() {
                             s_2.isEnabled = true
                             menu.isEnabled = true
                             s_2.clearAnimation()
-                            s_2.y = 295f
+                            s_2.y = (s_2.y + 130)
                         }
-
                         override fun onAnimationRepeat(animation: Animation?) {
                         }
                     })
                     s_2.startAnimation(animacion)
+
                     animacion_sonido.setAnimationListener(object:Animation.AnimationListener{
                         override fun onAnimationStart(animation: Animation?) {
                             sound.isEnabled = false
@@ -189,7 +189,7 @@ class pagina_inicioActivity : AppCompatActivity() {
                             sound.clearAnimation()
                             menu.isEnabled = true
                             sound.isEnabled = true
-                            sound.x = 700f
+                            sound.x = (sound.x - 200)
                         }
 
                         override fun onAnimationRepeat(animation: Animation?) {
@@ -224,11 +224,8 @@ class pagina_inicioActivity : AppCompatActivity() {
                         override fun onAnimationEnd(animation: Animation?) {
                             git.clearAnimation()
                             git.isEnabled = true
-                            val v_x = git.x
-                            val v_y = git.y
-
-                            git.x = v_x - 200
-                            git.y = v_y + 130
+                            git.x = (git.x - 200)
+                            git.y = (git.y + 130)
                         }
 
                         override fun onAnimationRepeat(animation: Animation?) {
@@ -252,7 +249,7 @@ class pagina_inicioActivity : AppCompatActivity() {
                             s_2.isEnabled = true
                             menu.isEnabled = true
                             s_2.clearAnimation()
-                            s_2.y = 171f
+                            s_2.y = (s_2.y - 130)
                         }
 
                         override fun onAnimationRepeat(animation: Animation?) {
@@ -267,9 +264,8 @@ class pagina_inicioActivity : AppCompatActivity() {
                         override fun onAnimationEnd(animation: Animation?) {
                             sound.clearAnimation()
                             sound.isEnabled = true
-                            sound.x = 915f
                             view.visibility = View.VISIBLE
-
+                            sound.x = (sound.x + 200)
                         }
 
                         override fun onAnimationRepeat(animation: Animation?) {
@@ -300,11 +296,8 @@ class pagina_inicioActivity : AppCompatActivity() {
 
                         override fun onAnimationEnd(animation: Animation?) {
                             git.isEnabled = true
-                            val v_x = git.x
-                            val v_y = git.y
-
-                            git.x = v_x + 200
-                            git.y = v_y -130
+                            git.x = (git.x + 200)
+                            git.y = (git.y - 130)
                         }
 
                         override fun onAnimationRepeat(animation: Animation?) {
