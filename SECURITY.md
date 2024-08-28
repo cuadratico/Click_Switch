@@ -6,12 +6,13 @@ Version 8.6.5 is the latest version and the only one maintained by me..
 
 | Version | Supported          |
 | ------- | ------------------ |
-| 8.6.5  | :white_check_mark: |
+| 8.6.6   | :white_check_mark: |
+| 8.6.5   | ❌ |
 | 8.6.4   | ❌ |
 | 8.6.3   | ❌ |
 | 8.6.2   | ❌ |
 | 8.6.1   | ❌ |
-| 8.6   | ❌ |
+| 8.6.0   | ❌ |
 
 ## Reporting a Vulnerability
 
