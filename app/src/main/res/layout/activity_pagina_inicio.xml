@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".pagina_inicioActivity"
+    android:layoutDirection="ltr"
     android:background="@color/ojo"
     >
 
@@ -150,10 +151,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginStart="150dp"
         android:layout_marginTop="14dp"
         android:background="@color/ojo"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="20dp"
         />
 
     <View

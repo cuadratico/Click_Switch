@@ -10,6 +10,7 @@ import android.preference.PreferenceManager
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
+import android.view.WindowManager
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.AdapterView
@@ -107,9 +108,7 @@ class pagina_inicioActivity : AppCompatActivity() {
                 val c = colores.getItemAtPosition(0).toString()
                 cambio(c)
             }else{
-                val posicion = lista.indexOf(col)
-                colores.setSelection(posicion)
-
+                colores.setSelection(lista.indexOf(col))
                 cambio(col)
             }
 
@@ -161,6 +160,25 @@ class pagina_inicioActivity : AppCompatActivity() {
                     val animacion_sonido = AnimationUtils.loadAnimation(this, R.anim.transicion_sonido)
                     val animacion_colores = AnimationUtils.loadAnimation(this, R.anim.transicion_colores)
                     val animacion_git = AnimationUtils.loadAnimation(this, R.anim.translacion_de_git)
+
+                    // animacion de colores
+                    animacion_colores.setAnimationListener(object : Animation.AnimationListener{
+                        override fun onAnimationStart(animation: Animation?) {
+                            colores.isEnabled = false
+                            colores.visibility = View.VISIBLE
+
+                        }
+
+                        override fun onAnimationEnd(animation: Animation?) {
+                            colores.clearAnimation()
+                            colores.isEnabled = true
+                        }
+
+                        override fun onAnimationRepeat(animation: Animation?) {
+                            TODO("Not yet implemented")
+                        }
+                    })
+                    colores.startAnimation(animacion_colores)
                     animacion.setAnimationListener(object:Animation.AnimationListener{
                         override fun onAnimationStart(animation: Animation?) {
                             s_2.isEnabled = false
@@ -197,24 +215,6 @@ class pagina_inicioActivity : AppCompatActivity() {
                         }
                     })
                     sound.startAnimation(animacion_sonido)
-                    // animacion de colores
-                    animacion_colores.setAnimationListener(object : Animation.AnimationListener{
-                        override fun onAnimationStart(animation: Animation?) {
-                            colores.isEnabled = false
-                            colores.visibility = View.VISIBLE
-
-                        }
-
-                        override fun onAnimationEnd(animation: Animation?) {
-                            colores.clearAnimation()
-                            colores.isEnabled = true
-                        }
-
-                        override fun onAnimationRepeat(animation: Animation?) {
-                            TODO("Not yet implemented")
-                        }
-                    })
-                    colores.startAnimation(animacion_colores)
 
                     animacion_git.setAnimationListener(object: Animation.AnimationListener{
                         override fun onAnimationStart(animation: Animation?) {
@@ -477,6 +477,11 @@ class pagina_inicioActivity : AppCompatActivity() {
             }else{
                 restart.visibility = View.VISIBLE
             }
+
+            window.setFlags(
+                WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
+                WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION
+            )
         }
         juego()
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->

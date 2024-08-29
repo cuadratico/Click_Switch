@@ -1,11 +1,16 @@
 package com.clicc
 
+import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.preference.PreferenceManager
+import android.util.Log
 import android.view.View
+import android.view.WindowManager
 import android.view.animation.AnimationUtils
 import android.widget.CheckBox
 import android.widget.TextView
@@ -18,6 +23,10 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.progressindicator.LinearProgressIndicator
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -29,6 +38,8 @@ class dificilActivity : AppCompatActivity() {
         fun juego_dificil() {
             getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES)
 
+            var tiempo = 0
+            var oportunities = false
             val sonido = MediaPlayer.create(this, R.raw.botones)
             val pref = PreferenceManager.getDefaultSharedPreferences(this)
             val col = pref.getString("colores", "")
@@ -48,20 +59,43 @@ class dificilActivity : AppCompatActivity() {
             val b_verde = findViewById<AppCompatButton>(R.id.b_verde)
             val b_amarillo = findViewById<AppCompatButton>(R.id.b_amarillo)
             val idiom = intent.extras?.getString("idioma").orEmpty()
-            var time = ""
+            var time = 0
             val recor = intent.extras?.getString("puntos").orEmpty()
             val progreso = findViewById<LinearProgressIndicator>(R.id.progreso)
             val tapador = findViewById<View>(R.id.tapador)
 
+            fun fallo() {
+                finish()
+                val i = recor.toInt()
+                val p = puntuacion.text.toString()
+                val i_2 = p.toInt()
+                if (i_2 > i) {
+                    val intent = Intent(this, pagina_inicioActivity::class.java)
+                    intent.putExtra("valor", p)
+                    intent.putExtra("time", time.toString())
+                    startActivities(arrayOf(intent))
+                } else {
+                    startActivities(
+                        arrayOf(
+                            Intent(
+                                this,
+                                pagina_inicioActivity::class.java
+                            )
+                        )
+                    )
+                }
+            }
+
+
             // contador
+            var trabajo: Job? = null
             fun contador(valor:Int) {
                 val tiempo = findViewById<TextView>(R.id.tiempo)
-                lifecycleScope.launch {
+                progreso.max = valor
+                trabajo = lifecycleScope.launch {
                     for (i in valor downTo 0) {
                         tiempo.text = i.toString()
-                        // regla de tres
-                        val r_3 = (i * 100)/valor
-                        progreso.progress = r_3
+                        progreso.progress = i
                         val p = progreso.progress
                         if (valor != 60) {
                             if (p <= 97) {
@@ -78,18 +112,10 @@ class dificilActivity : AppCompatActivity() {
                         }
                         if (i == 0) {
                             delay(1)
-                            val p = puntuacion.text.toString()
-                            val i = p.toInt()
-                            val i_2 = recor.toInt()
-                            val intent = Intent(applicationContext, pagina_inicioActivity::class.java)
-                            if (i > i_2) {
-                                intent.putExtra("valor", i.toString())
-                                intent.putExtra("time", time)
-                                startActivities(arrayOf(intent))
-                            }else{
-                                startActivities(arrayOf(intent))
-                            }
+                            fallo()
+                            Log.e("contador", "fallo")
                         }else{
+                            time ++
                             delay(1000)
                         }
                     }
@@ -108,7 +134,7 @@ class dificilActivity : AppCompatActivity() {
                 b.setOnCheckedChangeListener { buttonView, isChecked ->
                     if (isChecked){
                         tapador.visibility = View.INVISIBLE
-                        time = v.toString()
+                        tiempo += v
                         contador(v)
                         builder.dismiss()
                     }else{
@@ -198,6 +224,54 @@ class dificilActivity : AppCompatActivity() {
             }
 
             pintado(texto, colores)
+
+            // oportunidades
+            fun oportinidades(){
+                val builde = Dialog(this)
+                var job: Job? = null
+                val scop = CoroutineScope(Dispatchers.Main)
+                fun contado(con: LinearProgressIndicator){
+                    job = scop.launch {
+                        for (i in con.progress..30){
+                            if (i == 0){
+                                builde.dismiss()
+                                contador(tiempo)
+                                scop.cancel()
+                            }else if (i == 30){
+                                builde.dismiss()
+                                fallo()
+                                Log.e("contado", "fallo")
+                            }else {
+                                con.progress = i
+                                delay(150)
+                            }
+                        }
+                    }
+                }
+                val vie = layoutInflater.inflate(R.layout.dialog_opor, null)
+
+                @SuppressLint("MissingInflatedId")
+                val presionar = vie.findViewById<View>(R.id.save)
+                presionar.setBackgroundColor(Color.TRANSPARENT)
+                val contador = vie.findViewById<LinearProgressIndicator>(R.id.contador)
+                contador.trackColor = Color.TRANSPARENT
+                contador.setBackgroundColor(Color.TRANSPARENT)
+                builde.setContentView(vie)
+                builde.setCancelable(false)
+                builde.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                builde.show()
+
+                contado(contador)
+                presionar.setOnClickListener {
+                    val valor = contador.progress - 1
+                    job!!.cancel()
+                    contador.progress = valor
+                    contado(contador)
+                }
+
+
+            }
+
             fun ingles() {
                 texto_1.text = "Score"
                 fun princial() {
@@ -228,18 +302,14 @@ class dificilActivity : AppCompatActivity() {
                             puntuacion.startAnimation(ani)
                             princial()
                         } else {
-                            finish()
-                            val i = recor.toInt()
-                            val p = puntuacion.text.toString()
-                            val i_2 = p.toInt()
-                            if (i_2 > i){
-                                val intent = Intent(this, pagina_inicioActivity::class.java)
-                                intent.putExtra("valor", p)
-                                intent.putExtra("time", time)
-                                startActivities(arrayOf(intent))
-                            }else{
-                                startActivities(arrayOf(Intent(this, pagina_inicioActivity::class.java)))
+                            if (oportunities){
+                                fallo()
+                            }else {
+                                oportunities = true
+                                trabajo!!.cancel()
+                                oportinidades()
                             }
+
                         }
                     }
                 }
@@ -287,17 +357,12 @@ class dificilActivity : AppCompatActivity() {
                             puntuacion.startAnimation(ani)
                             princial()
                         } else {
-                            finish()
-                            val i = recor.toInt()
-                            val p = puntuacion.text.toString()
-                            val i_2 = p.toInt()
-                            if (i_2 > i){
-                                val intent = Intent(this, pagina_inicioActivity::class.java)
-                                intent.putExtra("valor", i_2.toString())
-                                intent.putExtra("time", time)
-                                startActivities(arrayOf(intent))
-                            }else{
-                                startActivities(arrayOf(Intent(this, pagina_inicioActivity::class.java)))
+                            if (oportunities){
+                                fallo()
+                            }else {
+                                oportunities = true
+                                trabajo!!.cancel()
+                                oportinidades()
                             }
                         }
 
@@ -322,6 +387,10 @@ class dificilActivity : AppCompatActivity() {
             }
 
 
+            window.setFlags(
+                WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
+                WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION
+            )
 
         }
         juego_dificil()

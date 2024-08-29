@@ -12,6 +12,7 @@
         android:roundIcon="@mipmap/logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.Click"
+
         tools:targetApi="31">
         <activity
             android:name=".crazyActivity"
@@ -40,5 +41,4 @@
             android:name=".MainActivity"
             android:exported="false" />
     </application>
-
 </manifest>
