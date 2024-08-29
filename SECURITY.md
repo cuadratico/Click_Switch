@@ -6,7 +6,8 @@ Version 8.6.5 is the latest version and the only one maintained by me..
 
 | Version | Supported          |
 | ------- | ------------------ |
-| 8.6.6   | :white_check_mark: |
+| 8.7.6   | :white_check_mark: |
+| 8.6.6   | ❌ |
 | 8.6.5   | ❌ |
 | 8.6.4   | ❌ |
 | 8.6.3   | ❌ |
