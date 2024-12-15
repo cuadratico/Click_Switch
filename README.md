@@ -2,7 +2,7 @@
 ![Logo](https://is1-ssl.mzstatic.com/image/thumb/Purple126/v4/32/2a/a3/322aa3f7-cf3f-ec28-6700-c1a56411d8fd/AppIcon-0-0-1x_U007emarketing-0-0-0-7-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/100x0w.webp)
 
 
-#new
+# new
 - ClickSwitch is being rewritten for better optimization and is being translated into several languages, thanks for your interest in the project😄.
 
 - Translation credits: https://github.com/therealbush/translator
